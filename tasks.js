@@ -24,6 +24,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Otros endpoints aquí...
+
 
 module.exports = router;
