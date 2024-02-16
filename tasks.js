@@ -1,29 +1,13 @@
-const express = require('express');
-const Task = require('../models/Task');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
+const Task = require('../models/Task.js')
+const TaskController = require('../controllers/TaskController.js')
 
-// POST /create
-router.post('/create', async (req, res) => {
-  try {
-    const { title } = req.body;
-    const task = new Task({ title });
-    await task.save();
-    res.status(201).json(task);
-  } catch (error) {
-    res.status(500).json({ message: 'Error al crear la tarea' });
-  }
-});
+router.post("/create", TaskController.create)
+router.get('/', TaskController.getAll )
+router.get('/id/:_id', TaskController.getByID)
+router.put("/markascompleted/:_id", TaskController.updateCompleted)
+router.put('/id/:_id', TaskController.updateByName) 
+router.delete('/id/:_id', TaskController.deleteTask )
 
-// GET /
-router.get('/', async (req, res) => {
-  try {
-    const tasks = await Task.find();
-    res.json(tasks);
-  } catch (error) {
-    res.status(500).json({ message: 'Error al obtener las tareas' });
-  }
-});
-
-
-
-module.exports = router;
+module.exports = router
